@@ -1,6 +1,6 @@
 <?php
 /*
-Plugin Name: RK Gigya
+Plugin Name: WP Gigya
 Plugin URI: http://digitallyconscious.com
 Description: Taking care of Gigya integration for WordPress/WordPress VIP in minimalistic way
 Author: Rinat Khaziev, doejo
@@ -26,20 +26,20 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 
 /**
- * This is a slight rewrite of Localtv_Gigya.
- *
  * @todo  package it as a complete standalone plugin and open source it.
  */
 
 // __FILE__ resolves to abspath of symlinked file
-define( 'RK_GIGYA_VERSION', '0.0' );
-define( 'RK_GIGYA_ROOT' , dirname( __FILE__ ) );
-define( 'RK_GIGYA_FILE_PATH' , RK_GIGYA_ROOT . '/' . basename( __FILE__ ) );
-define( 'RK_GIGYA_URL' , plugins_url( '', __FILE__ ) );
+define( 'WP_GIGYA_VERSION', '0.0' );
+define( 'WP_GIGYA_ROOT' , dirname( __FILE__ ) );
+define( 'WP_GIGYA_FILE_PATH' , WP_GIGYA_ROOT . '/' . basename( __FILE__ ) );
+define( 'WP_GIGYA_URL' , plugins_url( '', __FILE__ ) );
 
-class RK_Gigya {
-	private static $instance;
-	protected $API_Key, $API_Secret, $comments_ID, $chat_ID, $params;
+require_once WP_GIGYA_ROOT . '/inc/vendor/php/settings/class.settings-api.php';
+require_once WP_GIGYA_ROOT . '/inc/php/settings.php';
+
+class WP_Gigya {
+	protected $API_Key, $API_Secret, $comments_ID, $chat_ID, $params, $settings;
 
 	/**
 	 * set Gigya API params
@@ -56,10 +56,16 @@ class RK_Gigya {
 	 * @return [type] [description]
 	 */
 	public function init() {
-		$this->API_Key = rt_get_setting( 'gigya_api_key', false );
-		$this->API_Secret = rt_get_setting( 'gigya_secret_key', false );
-		$this->comments_ID = rt_get_setting( 'gigya_comments_category_id', false );
-		$this->chat_ID = rt_get_setting( 'gigya_chat_id', false );
+		$this->settings = get_option( 'wp_gigya_settings', array(
+			'api_key' => '',
+			'api_secret' => '',
+			'chat_id' => '',
+			'comments_id' => ''
+		) );
+		$this->API_Key = $this->settings['api_key'];
+		$this->API_Secret = $this->settings['api_secret'];
+		$this->comments_ID = $this->settings['comments_id'];
+		$this->chat_ID = $this->settings['chat_id'];
 	}
 
 	/**
@@ -84,7 +90,7 @@ class RK_Gigya {
 
 	function enqueue_scripts() {
 		wp_enqueue_script( 'gigya-socialize', 'http://cdn.gigya.com/js/socialize.js?apiKey=' . $this->API_Key );
-		wp_enqueue_script( 'gigya', RK_GIGYA_URL  . 'inc/js/gigya.js' );
+		wp_enqueue_script( 'gigya', WP_GIGYA_URL  . 'inc/js/gigya.js' );
 		wp_localize_script( 'gigya', 'conf', array( 'APIKey' => $this->API_Key ) );
 		wp_localize_script( 'gigya', 'gigya_params', array( 'comments_id' => $this->comments_ID ) );
 
@@ -96,11 +102,11 @@ class RK_Gigya {
  * @param  [type] $block [description]
  * @return [type]        [description]
  */
-function rk_gigya_render( $block, $args = array() ) {
-	global $rk_gigya;
-	$rk_gigya->render( $block, $args );
+function wp_gigya_render( $block, $args = array() ) {
+	global $wp_gigya;
+	$wp_gigya->render( $block, $args );
 }
 
 
-global $rk_gigya;
-$rk_gigya = new RK_Gigya();
+global $wp_gigya;
+$wp_gigya = new WP_Gigya();
