@@ -1,0 +1,3 @@
+[submodule "inc/vendor/php/settings"]
+	path = inc/vendor/php/settings
+	url = git://github.com/rinatkhaziev/wordpress-settings-api-class.git
