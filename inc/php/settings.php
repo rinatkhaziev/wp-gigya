@@ -67,34 +67,33 @@ class WP_Gigya_Settings {
 			'wp_gigya_settings' => array(
 				array(
 					'name' => 'api_key',
-					'label' => __( 'Notify site admins', 'wp-gigya' ),
-					'desc' => __( 'Yes', 'wp-gigya' ),
-					'type' => 'checkbox',
+					'label' => __( 'API Key', 'wp-gigya' ),
+					'type' => 'text',
 					'default' => '',
+					'sanitize_callback' => 'sanitize_text_field'
 				),
 				array(
 					'name' => 'api_secret',
-					'label' => __( 'Admin Notification', 'wp-gigya' ),
-					'desc' => __( 'Message that admin will get on new file upload', 'wp-gigya' ),
-					'type' => 'textarea',
-					'default' => 'Someone uploaded a new UGC file, please moderate at: ' . admin_url( 'upload.php?page=manage_frontend_uploader' ),
-					'sanitize_callback' => 'wp_filter_post_kses'
+					'label' => __( 'API Secret', 'wp-gigya' ),
+					'type' => 'text',
+					'default' => '',
+					'sanitize_callback' => 'sanitize_text_field'
 				),
 				array(
 					'name' => 'comments_id',
-					'label' => __( 'Admin Notification', 'wp-gigya' ),
-					'desc' => __( 'Message that admin will get on new file upload', 'wp-gigya' ),
-					'type' => 'textarea',
-					'default' => 'Someone uploaded a new UGC file, please moderate at: ' . admin_url( 'upload.php?page=manage_frontend_uploader' ),
-					'sanitize_callback' => 'wp_filter_post_kses'
+					'label' => __( 'Comments ID', 'wp-gigya' ),
+					'desc' => __( '', 'wp-gigya' ),
+					'type' => 'text',
+					'default' => '' ,
+					'sanitize_callback' => 'sanitize_text_field'
 				),
 				array(
 					'name' => 'chat_id',
-					'label' => __( 'Admin Notification', 'wp-gigya' ),
-					'desc' => __( 'Message that admin will get on new file upload', 'wp-gigya' ),
-					'type' => 'textarea',
-					'default' => 'Someone uploaded a new UGC file, please moderate at: ' . admin_url( 'upload.php?page=manage_frontend_uploader' ),
-					'sanitize_callback' => 'wp_filter_post_kses'
+					'label' => __( 'Chat ID', 'wp-gigya' ),
+					'desc' => __( '', 'wp-gigya' ),
+					'type' => 'text',
+					'default' => '' ,
+					'sanitize_callback' => 'sanitize_text_field'
 				),
 			),
 		);
