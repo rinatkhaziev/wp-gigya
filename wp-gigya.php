@@ -3,9 +3,9 @@
 Plugin Name: WP Gigya
 Plugin URI: http://digitallyconscious.com
 Description: Taking care of Gigya integration for WordPress/WordPress VIP in minimalistic way
-Author: Rinat Khaziev, doejo
+Author: Rinat Khaziev
 Version: 0.0
-Author URI: http://doejo.com
+Author URI: http://digitallyconscious.com
 
 GNU General Public License, Free Software Foundation <http://creativecommons.org/licenses/GPL/2.0/>
 
